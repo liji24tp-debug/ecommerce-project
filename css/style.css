@@ -1,0 +1,66 @@
+/* Reset basic margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Navigation Bar Styling */
+nav {
+  padding: 20px;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  margin-top: 10px;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 10px;
+}
+
+/* Mobile First Layout: 1 column grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Product Item Styling */
+.product-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.product-item:hover {
+  transform: scale(1.02);
+}
+
+/* Uniform Image Sizing: The key to your museum look */
+.product-item img {
+  width: 100%;
+  height: 300px; /* Fixed height for all images */
+  object-fit: cover; /* Crops/scales images to fill the 300px area perfectly */
+  display: block;
+}
+
+.product-item button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+/* Desktop Breakpoint: Switching to 4 columns for wider screens */
+@media screen and (min-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
