@@ -7,54 +7,106 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <nav>
+    <nav class="navbar">
       <div class="logo">Musical Album Museum</div>
-      <ul>
+      <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="products.html">Gallery</a></li>
         <li><a href="cart.html">Collection</a></li>
       </ul>
     </nav>
 
+    <header style="text-align: center; padding: 20px">
+      <h1>Album Gallery</h1>
+      <p>Click the heart to add an album to your collection.</p>
+    </header>
+
     <main class="product-grid">
       <div class="product-item">
-        <img src="img/album1.png" alt="Musical Album" />
-        <button onclick="addToCart('Album 1')">Add to Collection</button>
+        <img src="img/album1.png" alt="Album 1" />
+        <button
+          class="fav-btn"
+          data-id="Album 1"
+          onclick="toggleFavorite(this, 'Album 1')"
+        >
+          ❤
+        </button>
       </div>
 
       <div class="product-item">
-        <img src="img/album2.png" alt="Musical Album" />
-        <button onclick="addToCart('Album 2')">Add to Collection</button>
+        <img src="img/album2.png" alt="Album 2" />
+        <button
+          class="fav-btn"
+          data-id="Album 2"
+          onclick="toggleFavorite(this, 'Album 2')"
+        >
+          ❤
+        </button>
       </div>
 
       <div class="product-item">
-        <img src="img/album3.png" alt="Musical Album" />
-        <button onclick="addToCart('Album 3')">Add to Collection</button>
+        <a href="product.html">
+          <img src="img/album3.png" alt="Hamilton" />
+        </a>
+        <button
+          class="fav-btn"
+          data-id="Hamilton"
+          onclick="toggleFavorite(this, 'Hamilton')"
+        >
+          ❤
+        </button>
       </div>
 
       <div class="product-item">
-        <img src="img/album4.png" alt="Musical Album" />
-        <button onclick="addToCart('Album 4')">Add to Collection</button>
+        <img src="img/album4.png" alt="Album 4" />
+        <button
+          class="fav-btn"
+          data-id="Album 4"
+          onclick="toggleFavorite(this, 'Album 4')"
+        >
+          ❤
+        </button>
       </div>
 
       <div class="product-item">
-        <img src="img/album5.png" alt="Musical Album" />
-        <button onclick="addToCart('Album 5')">Add to Collection</button>
+        <img src="img/album5.png" alt="Album 5" />
+        <button
+          class="fav-btn"
+          data-id="Album 5"
+          onclick="toggleFavorite(this, 'Album 5')"
+        >
+          ❤
+        </button>
       </div>
-
       <div class="product-item">
-        <img src="img/album6.png" alt="Musical Album" />
-        <button onclick="addToCart('Album 6')">Add to Collection</button>
+        <img src="img/album6.png" alt="Album 6" />
+        <button
+          class="fav-btn"
+          data-id="Album 6"
+          onclick="toggleFavorite(this, 'Album 6')"
+        >
+          ❤
+        </button>
       </div>
-
       <div class="product-item">
-        <img src="img/album7.png" alt="Musical Album" />
-        <button onclick="addToCart('Album 7')">Add to Collection</button>
+        <img src="img/album7.png" alt="Album 7" />
+        <button
+          class="fav-btn"
+          data-id="Album 7"
+          onclick="toggleFavorite(this, 'Album 7')"
+        >
+          ❤
+        </button>
       </div>
-
       <div class="product-item">
-        <img src="img/album8.png" alt="Musical Album" />
-        <button onclick="addToCart('Album 8')">Add to Collection</button>
+        <img src="img/album8.png" alt="Album 8" />
+        <button
+          class="fav-btn"
+          data-id="Album 8"
+          onclick="toggleFavorite(this, 'Album 8')"
+        >
+          ❤
+        </button>
       </div>
     </main>
 
