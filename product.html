@@ -1,52 +1,26 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hamilton | Musical Album Museum</title>
-    <link rel="stylesheet" href="css/style.css" />
-  </head>
-  <body>
-    <nav>
-      <div class="logo">Musical Album Museum</div>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Gallery</a></li>
-        <li><a href="cart.html">Collection</a></li>
-      </ul>
-    </nav>
+<main class="detail-container">
+  <div class="detail-content">
+    <img src="img/album3.png" alt="Hamilton" class="detail-img" />
 
-    <main class="detail-container">
-      <div class="detail-content">
-        <img
-          src="img/album3.png"
-          alt="Hamilton Album Cover"
-          class="detail-img"
-        />
+    <div class="detail-text">
+      <h1>Hamilton (Original Broadway Cast Recording)</h1>
+      <p class="description">
+        Hamilton is a revolutionary musical about the life of American Founding
+        Father Alexander Hamilton, with music, lyrics, and book by Lin-Manuel
+        Miranda. The album blends hip-hop, R&B, pop, and soul.
+      </p>
 
-        <div class="detail-text">
-          <h1>Hamilton (Original Broadway Cast Recording)</h1>
-          <p class="description">
-            Hamilton is a revolutionary musical about the life of American
-            Founding Father Alexander Hamilton, with music, lyrics, and book by
-            Lin-Manuel Miranda. The album blends hip-hop, R&B, pop, and soul to
-            tell a story that has captured the world's imagination.
-          </p>
+      <button
+        class="fav-btn-large"
+        data-id="Hamilton"
+        onclick="toggleFavorite(this, 'Hamilton')"
+      >
+        ❤ Add to Collection
+      </button>
 
-          <button
-            class="fav-btn"
-            data-id="Hamilton"
-            onclick="toggleFavorite(this, 'Hamilton')"
-          >
-            ❤ Add/Remove from Collection
-          </button>
-
-          <br /><br />
-          <a href="products.html">← Back to Gallery</a>
-        </div>
+      <div class="back-link">
+        <a href="products.html">← Back to Gallery</a>
       </div>
-    </main>
-
-    <script src="js/script.js"></script>
-  </body>
-</html>
+    </div>
+  </div>
+</main>

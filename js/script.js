@@ -1,42 +1,75 @@
-/* All comments in English to meet assignment requirements */
+// --- JS Script for Musical Album Museum ---
 
-// Function to handle adding/removing from collection
+/**
+ * Toggles the favorite status of an album.
+ * If the page is cart.html, it will also re-render the list immediately.
+ */
 function toggleFavorite(button, albumId) {
-  // Get existing collection from localStorage or initialize empty array
-  let collection = JSON.parse(localStorage.getItem("myCollection")) || [];
+  let fullCollection = JSON.parse(localStorage.getItem("fullCollection")) || [];
+  const imgSrc = button.getAttribute("data-img");
 
-  // Check if item is already in the collection
-  const index = collection.indexOf(albumId);
+  const index = fullCollection.findIndex((item) => item.id === albumId);
 
   if (index > -1) {
-    // Item exists: Remove it (Unlike)
-    collection.splice(index, 1);
+    fullCollection.splice(index, 1);
     button.classList.remove("active");
-    console.log("Removed: " + albumId);
   } else {
-    // Item does not exist: Add it (Like)
-    collection.push(albumId);
+    fullCollection.push({ id: albumId, img: imgSrc });
     button.classList.add("active");
-    console.log("Added: " + albumId);
   }
 
-  // Save updated collection back to localStorage
-  localStorage.setItem("myCollection", JSON.stringify(collection));
+  localStorage.setItem("fullCollection", JSON.stringify(fullCollection));
+
+  // If we are on the cart page, update the view immediately
+  if (document.getElementById("collection-list")) {
+    renderCollection();
+  }
 }
 
-// Function to maintain state when page reloads
-function checkFavorites() {
-  let collection = JSON.parse(localStorage.getItem("myCollection")) || [];
-  const buttons = document.querySelectorAll(".fav-btn");
+/**
+ * Renders the collection list to the DOM.
+ */
+function renderCollection() {
+  const list = document.getElementById("collection-list");
+  let fullCollection = JSON.parse(localStorage.getItem("fullCollection")) || [];
 
-  buttons.forEach((btn) => {
-    // Get the ID from the data-id attribute we set in HTML
+  if (!list) return; // Safety check
+
+  if (fullCollection.length === 0) {
+    list.innerHTML =
+      "<p style='grid-column: 1/-1; text-align: center;'>Your collection is empty.</p>";
+  } else {
+    list.innerHTML = fullCollection
+      .map(
+        (item) => `
+            <div class="product-item">
+                <img src="${item.img}" alt="${item.id}" />
+                <p style="margin-top:10px; font-weight:bold;">${item.id}</p>
+                <button class="fav-btn active" 
+                        data-id="${item.id}" 
+                        data-img="${item.img}" 
+                        onclick="toggleFavorite(this, '${item.id}')">
+                    ❤
+                </button>
+            </div>
+        `,
+      )
+      .join("");
+  }
+}
+
+// Logic to execute when the page loads
+window.onload = function () {
+  let fullCollection = JSON.parse(localStorage.getItem("fullCollection")) || [];
+
+  // 1. Maintain heart icon state on the Gallery page
+  document.querySelectorAll(".fav-btn").forEach((btn) => {
     const id = btn.getAttribute("data-id");
-    if (collection.includes(id)) {
+    if (fullCollection.find((item) => item.id === id)) {
       btn.classList.add("active");
     }
   });
-}
 
-// Initialize when page is loaded
-window.onload = checkFavorites;
+  // 2. Render the collection list if on the collection page
+  renderCollection();
+};
