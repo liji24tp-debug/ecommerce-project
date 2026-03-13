@@ -1,44 +1,67 @@
-// Switch collection status
+// --- Switch to favorites status ---
 function toggleFavorite(button, albumId) {
-  let collection = JSON.parse(localStorage.getItem("myCollection")) || [];
-  const index = collection.indexOf(albumId);
-
-  if (index > -1) {
-    // If it exists, remove it
-    collection.splice(index, 1);
-    button.classList.remove("active");
-  } else {
-    // Add if it does not exist.
-    collection.push(albumId);
-    button.classList.add("active");
+  // Get the stored list
+  let collection = JSON.parse(localStorage.getItem("myCollection"));
+  if (collection == null) {
+    collection = [];
   }
+
+  // Loop through to find if the ID already exists
+  let foundIndex = -1;
+  for (let i = 0; i < collection.length; i++) {
+    if (collection[i] == albumId) {
+      foundIndex = i;
+    }
+  }
+
+  // If found, remove; otherwise, add
+  if (foundIndex > -1) {
+    collection.splice(foundIndex, 1);
+    button.className = "fav-btn"; // Remove active style
+  } else {
+    collection.push(albumId);
+    button.className = "fav-btn active"; // Add active style
+  }
+
+  // Save data
   localStorage.setItem("myCollection", JSON.stringify(collection));
 }
 
-// Restore heart state when page loads
+// --- Execute when page loads ---
 window.onload = function () {
-  let collection = JSON.parse(localStorage.getItem("myCollection")) || [];
-  document.querySelectorAll(".fav-btn").forEach((btn) => {
-    if (collection.includes(btn.getAttribute("data-id"))) {
-      btn.classList.add("active");
-    }
-  });
+  let collection = JSON.parse(localStorage.getItem("myCollection"));
+  if (collection == null) collection = [];
 
-  // If it's a cart.html page, render the list.
-  if (document.getElementById("collection-list")) {
-    renderCollection();
+  let buttons = document.getElementsByClassName("fav-btn");
+  for (let i = 0; i < buttons.length; i++) {
+    let btn = buttons[i];
+    let id = btn.getAttribute("data-id");
+
+    // Loop through to check if this ID is in the collection
+    for (let j = 0; j < collection.length; j++) {
+      if (collection[j] == id) {
+        btn.className = "fav-btn active";
+      }
+    }
+  }
+
+  let list = document.getElementById("collection-list");
+  if (list != null) {
+    renderCollection(collection);
   }
 };
 
-// Render collection content
-function renderCollection() {
-  const list = document.getElementById("collection-list");
-  let collection = JSON.parse(localStorage.getItem("myCollection")) || [];
+// --- Render favorite list ---
+function renderCollection(collection) {
+  let list = document.getElementById("collection-list");
 
-  if (collection.length === 0) {
+  if (collection.length == 0) {
     list.innerHTML = "<p>Your collection is empty.</p>";
   } else {
-    list.innerHTML =
-      "<ul>" + collection.map((item) => `<li>${item}</li>`).join("") + "</ul>";
+    list.innerHTML = "<ul>";
+    for (let i = 0; i < collection.length; i++) {
+      list.innerHTML += "<li>" + collection[i] + "</li>";
+    }
+    list.innerHTML += "</ul>";
   }
 }

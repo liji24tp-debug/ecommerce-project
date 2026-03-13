@@ -1,26 +1,52 @@
-<main class="detail-container">
-  <div class="detail-content">
-    <img src="img/album3.png" alt="Hamilton" class="detail-img" />
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hamilton | NoteStage</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">NoteStage</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">EchoPlay</a></li>
+        <li><a href="cart.html">Collection</a></li>
+      </ul>
+    </nav>
 
-    <div class="detail-text">
-      <h1>Hamilton (Original Broadway Cast Recording)</h1>
-      <p class="description">
-        Hamilton is a revolutionary musical about the life of American Founding
-        Father Alexander Hamilton, with music, lyrics, and book by Lin-Manuel
-        Miranda. The album blends hip-hop, R&B, pop, and soul.
-      </p>
+    <main class="detail-container">
+      <div class="detail-content">
+        <img src="img/album3.png" alt="Hamilton" class="detail-img" />
 
-      <button
-        class="fav-btn-large"
-        data-id="Hamilton"
-        onclick="toggleFavorite(this, 'Hamilton')"
-      >
-        ❤ Add to Collection
-      </button>
+        <div class="detail-text">
+          <h1>Hamilton (Original Broadway Cast Recording)</h1>
 
-      <div class="back-link">
-        <a href="products.html">← Back to Gallery</a>
+          <p class="detail-price">$29.99</p>
+
+          <p class="description">
+            Hamilton is a revolutionary musical about the life of American
+            Founding Father Alexander Hamilton, with music, lyrics, and book by
+            Lin-Manuel Miranda. The album blends hip-hop, R&B, pop, and soul.
+          </p>
+
+          <button
+            class="fav-btn-large"
+            data-id="Hamilton"
+            data-img="img/album3.png"
+            onclick="toggleFavorite(this, 'Hamilton')"
+          >
+            ❤ Add to Collection
+          </button>
+
+          <div class="back-link">
+            <a href="products.html">← Back to EchoPlay</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</main>
+    </main>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

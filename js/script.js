@@ -1,75 +1,93 @@
-// --- JS Script for Musical Album Museum ---
-
-/**
- * Toggles the favorite status of an album.
- * If the page is cart.html, it will also re-render the list immediately.
- */
+// Function to toggle favorites status
 function toggleFavorite(button, albumId) {
   let fullCollection = JSON.parse(localStorage.getItem("fullCollection")) || [];
-  const imgSrc = button.getAttribute("data-img");
+  let imgSrc = button.getAttribute("data-img");
 
-  const index = fullCollection.findIndex((item) => item.id === albumId);
+  let priceElement =
+    button.parentElement.querySelector(".price") ||
+    button.parentElement.querySelector(".detail-price");
+  let priceText = priceElement ? priceElement.innerText : "";
+
+  let index = -1;
+  for (let i = 0; i < fullCollection.length; i++) {
+    if (fullCollection[i].id == albumId) {
+      index = i;
+    }
+  }
 
   if (index > -1) {
     fullCollection.splice(index, 1);
-    button.classList.remove("active");
+    button.className = "fav-btn";
   } else {
-    fullCollection.push({ id: albumId, img: imgSrc });
-    button.classList.add("active");
+    fullCollection.push({ id: albumId, img: imgSrc, price: priceText });
+    button.className = "fav-btn active";
   }
 
   localStorage.setItem("fullCollection", JSON.stringify(fullCollection));
 
-  // If we are on the cart page, update the view immediately
   if (document.getElementById("collection-list")) {
     renderCollection();
   }
 }
 
-/**
- * Renders the collection list to the DOM.
- */
+// Render collection list
 function renderCollection() {
-  const list = document.getElementById("collection-list");
+  let list = document.getElementById("collection-list");
   let fullCollection = JSON.parse(localStorage.getItem("fullCollection")) || [];
 
-  if (!list) return; // Safety check
+  if (list == null) return;
 
-  if (fullCollection.length === 0) {
-    list.innerHTML =
-      "<p style='grid-column: 1/-1; text-align: center;'>Your collection is empty.</p>";
+  if (fullCollection.length == 0) {
+    list.innerHTML = "<p>Your collection is empty.</p>";
   } else {
-    list.innerHTML = fullCollection
-      .map(
-        (item) => `
-            <div class="product-item">
-                <img src="${item.img}" alt="${item.id}" />
-                <p style="margin-top:10px; font-weight:bold;">${item.id}</p>
-                <button class="fav-btn active" 
-                        data-id="${item.id}" 
-                        data-img="${item.img}" 
-                        onclick="toggleFavorite(this, '${item.id}')">
-                    ❤
-                </button>
-            </div>
-        `,
-      )
-      .join("");
+    list.innerHTML = "";
+    for (let i = 0; i < fullCollection.length; i++) {
+      let item = fullCollection[i];
+
+      list.innerHTML +=
+        '<div class="product-item">' +
+        '  <img src="' +
+        item.img +
+        '" alt="' +
+        item.id +
+        '" />' +
+        '  <p style="margin-top:10px; font-weight:bold;">' +
+        item.id +
+        "</p>" +
+        '  <p class="price">' +
+        (item.price || "") +
+        "</p>" +
+        '  <button class="fav-btn active" ' +
+        '          data-id="' +
+        item.id +
+        '" ' +
+        '          data-img="' +
+        item.img +
+        '" ' +
+        "          onclick=\"toggleFavorite(this, '" +
+        item.id +
+        "')\">" +
+        "    ❤" +
+        "  </button>" +
+        "</div>";
+    }
   }
 }
 
-// Logic to execute when the page loads
+// Execute when page loads
 window.onload = function () {
   let fullCollection = JSON.parse(localStorage.getItem("fullCollection")) || [];
 
-  // 1. Maintain heart icon state on the Gallery page
-  document.querySelectorAll(".fav-btn").forEach((btn) => {
-    const id = btn.getAttribute("data-id");
-    if (fullCollection.find((item) => item.id === id)) {
-      btn.classList.add("active");
+  let buttons = document.getElementsByClassName("fav-btn");
+  for (let i = 0; i < buttons.length; i++) {
+    let btn = buttons[i];
+    let id = btn.getAttribute("data-id");
+    for (let j = 0; j < fullCollection.length; j++) {
+      if (fullCollection[j].id == id) {
+        btn.className = "fav-btn active";
+      }
     }
-  });
+  }
 
-  // 2. Render the collection list if on the collection page
   renderCollection();
 };
